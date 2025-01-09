@@ -60,12 +60,16 @@ public
       sample_keys.each_with_index {|key, value_index| @samples[sample_name][key] = sample_values[value_index] || ""}
     end
     
-    return true;
+    true
   end
 
+  def valid_value(srt)
+    str.gsub(' ', '%20').gsub(';', '%3B').gsub(',', '%2C').gsub('=', '%3D')
+  end
+  
   def serialize  
     res = [@chrom, @pos, @id, @ref, @alt, @qual, @filter]
-    res << @info.map{|k,v|"#{k}=#{v}"}.join(";")
+    res << @info.map{|k,v|"#{k}=#{valid_value(v)}"}.join(";")
     if instance_variable_defined?(:@format)
       res << @format
       @samples.each do |gthash|
