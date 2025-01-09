@@ -63,4 +63,15 @@ public
     return true;
   end
 
+  def serialize  
+    res = [@chrom, @pos, @id, @ref, @alt, @qual, @filter]
+    res << @info.map{|k,v|"#{k}=#{v}"}.join(";")
+    if instance_variable_defined?(:@format)
+      res << @format
+      @samples.each do |gthash|
+        res << gthash[1].values.join(":")
+      end
+    end
+    res.join("\t")
+  end
 end
