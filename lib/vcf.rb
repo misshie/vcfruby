@@ -69,6 +69,7 @@ public
   
   def serialize  
     res = [@chrom, @pos, @id, @ref, @alt, @qual, @filter]
+    @info.each{|k, v|@info[k] = v.to_s}
     res << @info.map{|k,v|"#{k}=#{valid_value(v)}"}.join(";")
     if instance_variable_defined?(:@format)
       res << @format
