@@ -63,7 +63,7 @@ public
     true
   end
 
-  def valid_value(srt)
+  def valid_value(str)
     str.gsub(' ', '%20').gsub(';', '%3B').gsub(',', '%2C').gsub('=', '%3D')
   end
   
